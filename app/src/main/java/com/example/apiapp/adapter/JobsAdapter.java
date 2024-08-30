@@ -2,7 +2,6 @@ package com.example.apiapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apiapp.JobDetail;
+import com.example.apiapp.activity.JobDetail;
 import com.example.apiapp.MyApp;
 import com.example.apiapp.R;
 import com.example.apiapp.database.JobEntity;
 import com.example.apiapp.models.Job;
 import com.example.apiapp.models.PrimaryDetails;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsViewHolder> {

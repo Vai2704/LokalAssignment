@@ -1,20 +1,14 @@
-package com.example.apiapp;
+package com.example.apiapp.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.example.apiapp.R;
 import com.example.apiapp.api.ApiService;
-import com.example.apiapp.database.JobEntity;
 import com.example.apiapp.models.ApiResponse;
 import com.example.apiapp.models.Job;
 
@@ -69,15 +63,20 @@ public class JobDetail extends AppCompatActivity {
                     ApiResponse apiResponse = response.body();
                     List<Job> jobs = apiResponse.getResults();
                     if (jobs != null && !jobs.isEmpty()){
-                        Job job = jobs.get(0);
-                        // Set the job details in the views
-                        detailTitleTv.setText(job.getTitle());
-                        companyName.setText(job.getCompanyName());
-                        jobHours.setText(job.getJobHours());
-                        jobRole.setText(job.getJobRole());
-                        noOfOpenings.setText(job.getNumberOfOpening());
-                        salary.setText(job.getPrimary_details().getSalary());
-                        phoneNumber.setText(job.getPhoneNumber());
+                        for (Job job : jobs) {
+                            if (job.getId() == jobId) {  // Match the jobId
+                                // Set the job details in the views
+                                Log.d("Response", "onResponse: "+job);
+                                detailTitleTv.setText(job.getTitle());
+                                companyName.setText(job.getCompanyName());
+                                jobHours.setText(job.getJobHours());
+                                jobRole.setText(job.getJobRole());
+                                noOfOpenings.setText(job.getNumberOfOpening());
+                                salary.setText(job.getPrimary_details().getSalary());
+                                phoneNumber.setText(job.getPhoneNumber());
+                                break; // Exit loop once the correct job is found
+                            }
+                        }
                     }
                 } else {
                     Toast.makeText(JobDetail.this, "Failed to load job details", Toast.LENGTH_SHORT).show();

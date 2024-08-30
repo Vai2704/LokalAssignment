@@ -1,17 +1,19 @@
-package com.example.apiapp;
+package com.example.apiapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.SparseBooleanArrayKt;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.apiapp.EndlessRecyclerViewScrollListener;
+import com.example.apiapp.R;
 import com.example.apiapp.adapter.JobsAdapter;
 import com.example.apiapp.api.JobApi;
 import com.example.apiapp.models.ApiResponse;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isLoading = false;
     private boolean isLastPage = false;
     Button jobsBtn, bookmarkBtn;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         jobList = new ArrayList<>();
         jobsBtn = findViewById(R.id.jobsBtn);
         bookmarkBtn = findViewById(R.id.bookmarksBtn);
+        progressBar = findViewById(R.id.progressBar);
 
         jobsAdapter = new JobsAdapter( jobList, this);
         recyclerView.setAdapter(jobsAdapter);
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void fetchJobsFromApi(int page) {
         isLoading = true;
-
+        progressBar.setVisibility(View.VISIBLE);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://testapi.getlokalapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -94,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Failed to retrieve jobs", Toast.LENGTH_SHORT).show();
                 }
                 isLoading = false;
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override

@@ -1,4 +1,4 @@
-package com.example.apiapp;
+package com.example.apiapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.apiapp.MyApp;
+import com.example.apiapp.R;
 import com.example.apiapp.adapter.BookmarkAdapter;
 import com.example.apiapp.database.JobEntity;
 
